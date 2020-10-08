@@ -38,7 +38,7 @@ class TeqScraper < Kimurai::Base
     #   csv << @@tequilas
     # end
 
-    File.open("teq-pages.json","w") do |f|
+    File.open("tmp/teq-pages.json","w") do |f|
         f.write(JSON.pretty_generate(@@tequilas))
     end
 
