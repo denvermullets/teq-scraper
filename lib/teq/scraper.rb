@@ -27,21 +27,13 @@ class JobScraper < Kimurai::Base
 
     def parse(response, url:, data: {})
 
-        # 2.times do
             scrape_page
-
-            # if browser.current_response.css('div#popover-background') || browser.current_response.css('div#popover-input-locationtst')
-            #     browser.refresh 
-            # end
-                    
-            # browser.find('/html/body/table[2]/tbody/tr/td/table/tbody/tr/td[1]/nav/div/ul/li[6]/a/span').click
             puts "🔹 🔹 🔹 CURRENT NUMBER OF JOBS: #{@@jobs.count}🔹 🔹 🔹"
             puts "🔺 🔺 🔺 🔺 🔺  CLICKED NEXT BUTTON 🔺 🔺 🔺 🔺 "
-        # end
 
-        CSV.open('jobs.csv', "w") do |csv|
-            csv << @@jobs
-        end
+            CSV.open('jobs.csv', "w") do |csv|
+              csv << @@jobs
+            end
 
         File.open("jobs.json","w") do |f|
             f.write(JSON.pretty_generate(@@jobs))
