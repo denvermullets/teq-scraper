@@ -4,7 +4,6 @@ require 'json'
 class JobScraper < Kimurai::Base
   @name = 'tqdb_scrap'
   @start_urls = JSON.parse(File.read("tmp/teq-pages.json"))
-  # @start_urls = ["https://tequilamatchmaker.com/tequilas/5954-patron-en-lalique-serie-2"]
   @engine = :selenium_chrome
   
   @@tequilas = []
@@ -18,8 +17,8 @@ class JobScraper < Kimurai::Base
     teq_type = tequila.css('div.product-type a').text.gsub(/\n/, "")
     teq_rating_p = tequila.css('ul.product-list__item__ratings li')[0].text.gsub(/\D/, '').gsub(/\n/, "")
     teq_rating_c = tequila.css('ul.product-list__item__ratings li')[1].text.gsub(/\D/, '').gsub(/\n/, "")
-    # teq_price = tequila.css('div.commerce-price-container div span')[1].text.gsub(/\n/, "")
     teq_price_check = tequila.css('div.commerce-price-container div span')[1]
+
     if teq_price_check
       teq_price = tequila.css('div.commerce-price-container div span')[1].text.gsub(/\n/, "")
     else

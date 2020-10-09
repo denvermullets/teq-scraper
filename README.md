@@ -4,24 +4,18 @@ This is a basic scraper that works on JS framework sites
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'teq-scraper'
-```
-
-And then execute:
+Execute:
 
     $ bundle install
 
-Or install it yourself as:
-
-    $ gem install teq-scraper
-
 ## Usage
+
+Teqscaper.rb gets an array of urls
+TQDB.rb runs through array of urls
 
 ```
 ruby lib/teq/teqscraper.rb
+ruby lib/teq/tqdb.rb
 ```
 
 ## Contributing
