@@ -1,7 +1,7 @@
 require 'kimurai'
 require 'json'
 
-class JobScraper < Kimurai::Base
+class TequilaScraper < Kimurai::Base
   @name = 'tqdb_scrap'
   @start_urls = JSON.parse(File.read("tmp/teq-pages.json"))
   @engine = :selenium_chrome
@@ -56,17 +56,17 @@ class JobScraper < Kimurai::Base
 
   def parse(response, url:, data: {})
 
-        scrape_page
+    scrape_page
 
-        puts "🥃 🥃 🥃 🥃 🥃 CURRENT NUMBER OF TEQUILAS: #{@@tequilas.count} 🥃 🥃 🥃 🥃 🥃"
+    puts "🥃 🥃 🥃 🥃 🥃 CURRENT NUMBER OF TEQUILAS: #{@@tequilas.count} 🥃 🥃 🥃 🥃 🥃"
 
-        File.open("tequila.json","w") do |f|
-        f.write(JSON.pretty_generate(@@tequilas))
+    File.open("tequila.json","w") do |f|
+      f.write(JSON.pretty_generate(@@tequilas))
     end
     
     @@tequilas
   end
 end
 
-JobScraper.crawl!
+TequilaScraper.crawl!
 puts 'done scraping'
