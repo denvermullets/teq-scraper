@@ -23,6 +23,9 @@ class Indeed < Kimurai::Base
     browser.save_screenshot
     sleep 2
     while (doc.css('div.jobsearch-SerpJobCard')[0]) do
+      if browser.current_response.css('div.popover-foreground')
+        browser.refresh 
+      end
       # this loop goes thru the however many job listings are on the page
       doc = browser.current_response
       # get first job listing
