@@ -22,16 +22,50 @@ class Indeed < Kimurai::Base
     doc = browser.current_response
     browser.save_screenshot
     sleep 2
-    while (doc.css('div.jobsearch-SerpJobCard')[0]) do
-      if browser.current_response.css('div.popover-foreground')
-        browser.refresh 
+    
+    # sometimes a pop up will appear, refreshing page will avoid issues
+    if browser.current_response.css('div.popover-foreground')
+      puts 'found popup'
+      browser.refresh 
+      sleep 2 # let page have time to load JS
+      # when there's an event active it will reappear on refresh
+      if browser.current_response.css('div.vjs-highlight')
+        puts 'found kforce'
+        doc.css('div.vjs-highlight').remove
+        puts 'removed kforce ad'
+        sleep 2
+        # browser.execute_script("document.querySelector('div.vjs-highlight').remove()") ; sleep 2
       end
+    
+    end
+
+    if browser.current_response.css('div.vjs-highlight')
+      puts 'found kforce'
+      doc.css('div.vjs-highlight').remove
+      puts 'removed kforce ad'
+      sleep 2
+      # browser.execute_script("document.querySelector('div.vjs-highlight').remove()") ; sleep 2
+    end
+
+    if !browser.current_response.css('a.jobtitle').attribute('href')
+      puts "2nd pop up found"
+      browser.refresh
+      sleep 2
+      browser.save_screenshot
+      sleep 2
+      browser.refresh
+    end 
+
+    browser.save_screenshot
+
+    while (doc.css('div.jobsearch-SerpJobCard')[0]) do
       # this loop goes thru the however many job listings are on the page
       doc = browser.current_response
       # get first job listing
       single_job = doc.css('div.jobsearch-SerpJobCard')[0]
       # get job information
       job_url = single_job.css('a.jobtitle').attribute('href')
+      # job_url = 'https://indeed.com' + job_url
       job_role = single_job.css('a.jobtitle').text.strip().gsub(/\n/, "")
       job_company_name = single_job.css('span.company').text.strip().gsub(/\n/, "")
       # single_job.css('span.location') ? job_location = single_job.css('span.location').text.strip().gsub(/\n/, "") : job_location = single_job.css('div.location').text.strip().gsub(/\n/, "")
