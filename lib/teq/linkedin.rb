@@ -1,14 +1,14 @@
 require 'kimurai'
-require "selenium-webdriver"
+require 'selenium-webdriver'
 require 'dotenv/load'
 
 class Linkedin < Kimurai::Base
   @name = 'eng_job_scraper_student'
-  
+
   @start_urls = [
-    "https://www.linkedin.com/jobs/search/?f_TPR=r86400&geoId=90000070&keywords=full%20stack&location=New%20York%20City%20Metropolitan%20Area", 
-    "https://www.linkedin.com/jobs/search/?f_TPR=r86400&geoId=90000070&keywords=full%20stack&location=New%20York%20City%20Metropolitan%20Area&start=25", 
-    "https://www.linkedin.com/jobs/search/?f_TPR=r86400&geoId=90000070&keywords=full%20stack&location=New%20York%20City%20Metropolitan%20Area&start=50", 
+    "https://www.linkedin.com/jobs/search/?f_TPR=r86400&geoId=90000070&keywords=full%20stack&location=New%20York%20City%20Metropolitan%20Area",
+    "https://www.linkedin.com/jobs/search/?f_TPR=r86400&geoId=90000070&keywords=full%20stack&location=New%20York%20City%20Metropolitan%20Area&start=25",
+    "https://www.linkedin.com/jobs/search/?f_TPR=r86400&geoId=90000070&keywords=full%20stack&location=New%20York%20City%20Metropolitan%20Area&start=50",
     "https://www.linkedin.com/jobs/search/?f_TPR=r86400&geoId=90000070&keywords=full%20stack&location=New%20York%20City%20Metropolitan%20Area&start=75"
   ]
   # @start_urls = ["https://www.linkedin.com/jobs/search/?f_TPR=r86400&geoId=90000070&keywords=full%20stack&location=New%20York%20City%20Metropolitan%20Area"]
@@ -33,12 +33,12 @@ class Linkedin < Kimurai::Base
     rescue Capybara::ElementNotFound
       puts "user is logged in"
     end
-    
+
     # Update response to current response after interaction with a browser
     doc = browser.current_response
     browser.save_screenshot
     sleep 2
-    
+
     while (doc.css('li.jobs-search-results__list-item')[0]) do
       # this loop goes thru the 25 job listings per page
       doc = browser.current_response
@@ -78,7 +78,7 @@ class Linkedin < Kimurai::Base
     File.open("tmp/jobs.json","w") do |f|
       f.write(JSON.pretty_generate(@@jobs))
     end
-      
+
     @@jobs
   end
 end

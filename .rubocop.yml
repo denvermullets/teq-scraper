@@ -1,0 +1,47 @@
+AllCops:
+  NewCops: enable
+  # Auto-generated files are not our problem.
+  Exclude:
+    - "bin/*"
+    - "db/**/**"
+    - "node_modules/**/**"
+    - "vendor/**/**"
+    - "cypress/seeds.rb"
+
+Lint/UselessAssignment:
+  Exclude:
+    - "local_gems/*/bin/*"
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - "config/routes.rb"
+    - "spec/**/*.rb"
+    - "config/environments/**"
+    - "local_gems/*/spec/**/*.rb"
+
+Metrics/MethodLength:
+  Max: 20
+
+# Config files tend to get wordy.
+Layout/LineLength:
+  Exclude:
+    - "config/**/**"
+
+Style/BlockDelimiters:
+  Exclude:
+    - "spec/**/*.rb"
+
+# This is a case of "Damned if we do, damned if we don't."
+# Rails gets violently ill if you enforce compact style,
+# Namespaced scopes break if you try to enforce nested style.
+# Thus, this is disabled in the app scope. Elsewhere, go with compact.
+Style/ClassAndModuleChildren:
+  Exclude:
+    - "app/**/**"
+
+Style/RedundantFetchBlock:
+  Exclude:
+    - "config/puma.rb"
