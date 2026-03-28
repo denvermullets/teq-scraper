@@ -31,4 +31,3 @@ This was based on this great guide written by [Sylwia Vargas](https://www.scrapi
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-ok let's see now
